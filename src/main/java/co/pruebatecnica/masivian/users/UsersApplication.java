@@ -41,13 +41,13 @@ public class UsersApplication {
 			ResponseEntity<List<User>> rateResponse = restTemplate.exchange(
 					url,HttpMethod.GET, null, new ParameterizedTypeReference<List<User>>() {
 		            });
-			List<User> user = rateResponse.getBody();
+			List<User> userParsingFromJASON = rateResponse.getBody();
 			
-			for (User u : user)
-				userService.saveOrUpdate(u);
+			for (User userToStoreOnDB : userParsingFromJASON)
+				userService.saveOrUpdate(userToStoreOnDB);
 			
-			for (User u : userService.getAllResultadoOperacion())
-				log.info(u);
+			for (User userQueryedToDB : userService.getAllResultadoOperacion())
+				log.info(userQueryedToDB);
 		};
 	}
 
